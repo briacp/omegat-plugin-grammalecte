@@ -30,7 +30,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class PluginSkeletonTest {
+public class GrammalectePluginTest {
     
     @Before
     protected void setUp() throws Exception {
