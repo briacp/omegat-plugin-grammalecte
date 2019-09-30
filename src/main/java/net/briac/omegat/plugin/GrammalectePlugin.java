@@ -68,7 +68,7 @@ public class GrammalectePlugin implements IIssueProvider, IMarker {
     static {
         Core.registerMarker(new GrammalectePlugin());
     }
-    
+
     public static void loadPlugins() {
 
         CoreEvents.registerApplicationEventListener(new IApplicationEventListener() {
@@ -166,7 +166,7 @@ public class GrammalectePlugin implements IIssueProvider, IMarker {
     @Override
     public List<Mark> getMarksForEntry(SourceTextEntry ste, String sourceText, String translationText, boolean isActive)
             throws Exception {
-System.out.println("Get Mark for Grammalecte");
+        System.out.println("Get Mark for Grammalecte");
         if (translationText == null) {
             // Return when disabled or translation text is empty
             return null;
