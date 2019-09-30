@@ -44,11 +44,11 @@ import org.omegat.util.gui.Styles.EditorColor;
 
 class GrammalecteIssue implements IIssue {
 
-    static final Icon ICON = new SimpleColorIcon(EditorColor.COLOR_LANGUAGE_TOOLS.getColor());
+    static final Icon ICON = new SimpleColorIcon(EditorColor.COLOR_LANGUAGE_TOOLS.getColor().brighter());
     static final AttributeSet ERROR_STYLE;
     static {
         SimpleAttributeSet attr = new SimpleAttributeSet();
-        StyleConstants.setForeground(attr, EditorColor.COLOR_LANGUAGE_TOOLS.getColor());
+        StyleConstants.setForeground(attr, EditorColor.COLOR_LANGUAGE_TOOLS.getColor().brighter());
         StyleConstants.setBold(attr, true);
         ERROR_STYLE = attr;
     }

@@ -37,23 +37,40 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import javax.swing.text.Highlighter.HighlightPainter;
+
 import org.apache.commons.io.IOUtils;
 import org.omegat.core.Core;
 import org.omegat.core.CoreEvents;
 import org.omegat.core.data.SourceTextEntry;
 import org.omegat.core.data.TMXEntry;
 import org.omegat.core.events.IApplicationEventListener;
+import org.omegat.gui.editor.UnderlineFactory;
+import org.omegat.gui.editor.mark.IMarker;
+import org.omegat.gui.editor.mark.Mark;
 import org.omegat.gui.issues.IIssue;
 import org.omegat.gui.issues.IIssueProvider;
 import org.omegat.gui.issues.IssueProviders;
 import org.omegat.util.JsonParser;
 import org.omegat.util.Log;
+import org.omegat.util.Preferences;
+import org.omegat.util.StringUtil;
+import org.omegat.util.gui.Styles;
 
-public class GrammalectePlugin implements IIssueProvider {
+public class GrammalectePlugin implements IIssueProvider, IMarker {
     protected static final ResourceBundle res = ResourceBundle.getBundle("plugin-grammalecte", Locale.getDefault());
     private static final String API_VERSION = "1.5.0";
+    private static final String GRAMMALECTE_SERVER_URL = "grammalecte-server-url";
 
+    static final HighlightPainter PAINTER = new UnderlineFactory.WaveUnderline(
+            Styles.EditorColor.COLOR_LANGUAGE_TOOLS.getColor().brighter());
+
+    static {
+        Core.registerMarker(new GrammalectePlugin());
+    }
+    
     public static void loadPlugins() {
+
         CoreEvents.registerApplicationEventListener(new IApplicationEventListener() {
             @Override
             public void onApplicationStartup() {
@@ -96,7 +113,7 @@ public class GrammalectePlugin implements IIssueProvider {
     @SuppressWarnings("unchecked")
     protected List<GrammalecteResult> getCheckResults(String sourceText, String translationText) throws Exception {
         String targetLang = Core.getProject().getProjectProperties().getTargetLanguage().getLanguageCode();
-        String serverUrl = "http://localhost:8079/gc_text/fr";
+        String serverUrl = Preferences.getPreferenceDefault(GRAMMALECTE_SERVER_URL, "http://localhost:8079/gc_text/fr");
 
         if (targetLang == null || !targetLang.equalsIgnoreCase("fr")) {
             return Collections.emptyList();
@@ -110,6 +127,10 @@ public class GrammalectePlugin implements IIssueProvider {
         try (OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream(), StandardCharsets.UTF_8)) {
             String encoding = "UTF-8";
             StringBuilder sb = new StringBuilder("text=");
+
+            // Eliza - remove "_" an "*"
+            translationText = translationText.replaceAll("[_*]", "");
+
             sb.append(URLEncoder.encode(translationText, encoding));
             writer.write(sb.toString());
             writer.flush();
@@ -141,4 +162,29 @@ public class GrammalectePlugin implements IIssueProvider {
 
         }).collect(Collectors.toList());
     }
+
+    @Override
+    public List<Mark> getMarksForEntry(SourceTextEntry ste, String sourceText, String translationText, boolean isActive)
+            throws Exception {
+System.out.println("Get Mark for Grammalecte");
+        if (translationText == null) {
+            // Return when disabled or translation text is empty
+            return null;
+        }
+
+        translationText = StringUtil.normalizeUnicode(translationText);
+        sourceText = ste.getSrcText();
+
+        return getCheckResults(sourceText, translationText).stream().map(match -> {
+            Mark m = new Mark(Mark.ENTRY_PART.TRANSLATION, match.start, match.end);
+            m.toolTipText = match.message;
+            m.painter = PAINTER;
+            return m;
+        }).collect(Collectors.toList());
+    }
+
+//    protected boolean isEnabled() {
+//        return Core.getEditor().getSettings().isMarkLanguageChecker();
+//    }
+
 }
