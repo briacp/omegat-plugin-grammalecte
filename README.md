@@ -11,9 +11,8 @@ Currently, this plugin requires a running Grammalecte server. The server can be 
 
 ## Installation
 
-You can get a plugin jar file from zip/tgz distribution file.
-OmegaT plugin should be placed in `$HOME/.omegat/plugins` (Linux), `~/Library/Preferences/OmegaT/plugins/` (macos), or `C:\Program Files\OmegaT\plugins` (windows)
-depending on your operating system.
+You can download the plugin jar file from the [release page](../../releases). The OmegaT plugin jar should be placed in `$HOME/.omegat/plugins` (Linux), `~/Library/Preferences/OmegaT/plugins/` (macOS), or `C:\Program Files\OmegaT\plugins` (Windows) depending on your operating system.
+
 
 ## License
 
