@@ -36,7 +36,7 @@ Listening on http://localhost:8079/
 Hit Ctrl-C to quit.
 ```
 
-In OmegaT, you will have to configure the server Url by appending `gc_text/fr` to the server Url. In this example, it should be `http://localhost:8079/gc_text/fr'
+In OmegaT, you will have to configure the server Url by appending `gc_text/fr` to the server Url. In this example, it should be `http://localhost:8079/gc_text/fr`.
 
 ## Installation
 
