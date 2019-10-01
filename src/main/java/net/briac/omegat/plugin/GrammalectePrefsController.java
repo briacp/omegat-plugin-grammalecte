@@ -57,6 +57,7 @@ public class GrammalectePrefsController extends BasePreferencesController {
 
     @Override
     public void persist() {
+        // TODO - [adresse_serveur]:8079/set_options/fr (POST)
         Preferences.setPreference("grammalecte-serverUrl", panel.fieldUrl.getText());
         Preferences.setPreference("grammalecte-Apos", panel.prefApos.isSelected());
         Preferences.setPreference("grammalecte-Bs", panel.prefBs.isSelected());
@@ -95,6 +96,7 @@ public class GrammalectePrefsController extends BasePreferencesController {
 
     @Override
     public void restoreDefaults() {
+        // TODO - [adresse_serveur]:8079/reset_options/fr (POST)
         panel.fieldUrl.setText(GrammalectePlugin.DEFAULT_URL);
         panel.prefApos.setSelected(true);
         panel.prefBs.setSelected(true);
@@ -133,6 +135,7 @@ public class GrammalectePrefsController extends BasePreferencesController {
 
     @Override
     protected void initFromPrefs() {
+        // TODO - [adresse_serveur]:8079/get_options/fr (GET)
         panel.fieldUrl
                 .setText(Preferences.getPreferenceDefault("grammalecte-serverUrl", GrammalectePlugin.DEFAULT_URL));
         panel.prefApos.setSelected(Preferences.isPreference("grammalecte-Apos"));

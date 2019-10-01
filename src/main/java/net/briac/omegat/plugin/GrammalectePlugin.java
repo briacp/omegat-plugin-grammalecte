@@ -178,6 +178,7 @@ public class GrammalectePlugin implements IIssueProvider, IMarker {
     private String jsonOption() {
         StringBuilder sb = new StringBuilder("{");
         // TODO - be smarter and send only nondefaults options?
+        //        or better, use POST {server_url}/set_options/fr
         sb.append("\"apos\":").append(Preferences.isPreference("grammalecte-Apos")).append(",");
         sb.append("\"bs\":").append(Preferences.isPreference("grammalecte-Bs")).append(",");
         sb.append("\"chim\":").append(Preferences.isPreference("grammalecte-Chim")).append(",");

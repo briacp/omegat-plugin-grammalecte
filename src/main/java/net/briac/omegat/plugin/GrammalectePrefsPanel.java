@@ -112,7 +112,6 @@ public class GrammalectePrefsPanel extends javax.swing.JPanel {
         panelTypog.add(prefTypo);
 
         prefApos.setText(GrammalectePlugin.res.getString("opt.apos"));
-        prefApos.addActionListener(evt -> prefAposActionPerformed(evt));
         panelTypog.add(prefApos);
 
         prefEsp.setText(GrammalectePlugin.res.getString("opt.esp"));
@@ -262,10 +261,6 @@ public class GrammalectePrefsPanel extends javax.swing.JPanel {
                                 javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
     }// </editor-fold>
-
-    private void prefAposActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
 
     // Variables declaration - do not modify
     protected javax.swing.JTextField fieldUrl;
