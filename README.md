@@ -1,7 +1,8 @@
-# OmegaT Plugin - PluginSkeleton
+# OmegaT Plugin - Grammalecte
 
 ## Description
 
+This plugin requires a running Grammalecte server. It can be downloaded on [Grammalecte website](https://grammalecte.net/grammalecte/zip/Grammalecte-fr-v1.5.0.zip). 
 
 
 ## Installation
