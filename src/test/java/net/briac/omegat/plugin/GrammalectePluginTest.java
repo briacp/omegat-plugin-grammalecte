@@ -33,7 +33,7 @@ import static org.junit.Assert.*;
 public class GrammalectePluginTest {
     
     @Before
-    protected void setUp() throws Exception {
+    public void setUp() throws Exception {
         /* empty */
     }
     
